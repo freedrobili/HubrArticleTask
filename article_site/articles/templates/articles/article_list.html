@@ -1,0 +1,811 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+<!--        &lt;!&ndash; Использование кнопки Bootstrap &ndash;&gt;-->
+<!--        <button class="btn btn-primary" onclick="loadArticles()">Загрузить статьи</button>-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // Это URL для загрузки статей, замените его на свой-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очищаем контейнер перед отображением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <h2>${article.title}</h2>-->
+<!--                            <p>${article.content}</p>-->
+<!--                            <p>Автор: ${article.author}</p>-->
+<!--                            <p>Время публикации: ${article.date}</p>-->
+<!--                            <hr>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!--пагигация без кнопки-->
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--            {% for article in articles %}-->
+<!--                <div class="article">-->
+<!--                    <h2>{{ article.title }}</h2>-->
+<!--                    <p>{{ article.content }}</p>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // Это URL для загрузки статей, замените его на свой-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очищаем контейнер перед отображением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                <h2>${article.title}</h2>-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей (изначально скрыт) &ndash;&gt;-->
+<!--        <div id="articles-container" style="display: none;">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // Это URL для загрузки статей, замените его на свой-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очищаем контейнер перед отображением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                <h2>${article.title}</h2>-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                    // Показываем контейнер с загруженными статьями-->
+<!--                    articlesContainer.style.display = 'block';-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей (изначально скрыт) &ndash;&gt;-->
+<!--        <div id="articles-container" style="display: none;">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинация &ndash;&gt;-->
+<!--        <nav>-->
+<!--            <ul class="pagination" id="pagination"></ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles(page = 1) {-->
+<!--            fetch(`/load_articles/?page=${page}`) // Это URL для загрузки статей, замените его на свой-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очищаем контейнер перед отображением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                <h2>${article.title}</h2>-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                    // Показываем контейнер с загруженными статьями-->
+<!--                    articlesContainer.style.display = 'block';-->
+
+<!--                    // Генерируем пагинацию-->
+<!--                    generatePagination(data.page, data.total_pages);-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+
+<!--        function generatePagination(currentPage, totalPages) {-->
+<!--            const pagination = document.getElementById('pagination');-->
+<!--            pagination.innerHTML = '';-->
+<!--            for (let i = 1; i <= totalPages; i++) {-->
+<!--                const li = document.createElement('li');-->
+<!--                li.classList.add('page-item');-->
+<!--                if (i === currentPage) {-->
+<!--                    li.classList.add('active');-->
+<!--                }-->
+<!--                const link = document.createElement('a');-->
+<!--                link.classList.add('page-link');-->
+<!--                link.href = '#';-->
+<!--                link.textContent = i;-->
+<!--                link.onclick = function() {-->
+<!--                    loadArticles(i);-->
+<!--                };-->
+<!--                li.appendChild(link);-->
+<!--                pagination.appendChild(li);-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--последний рабочий-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--            {% for article in articles %}-->
+<!--                <div class="article">-->
+<!--                    <h2>{{ article.title }}</h2>-->
+<!--                    <p>{{ article.content }}</p>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // Это URL для загрузки статей, замените его на свой-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очищаем контейнер перед отображением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                <h2>${article.title}</h2>-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--есть пагинация-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей (изначально скрыт) &ndash;&gt;-->
+<!--        <div id="articles-container" style="display: none;">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            {% if articles.has_previous %}-->
+<!--                <a href="?page=1">&laquo; Первая</a>-->
+<!--                <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--            {% endif %}-->
+<!--            <span class="current">-->
+<!--                Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--            </span>-->
+<!--            {% if articles.has_next %}-->
+<!--                <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // Это URL для загрузки статей, замените его на свой-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очищаем контейнер перед отображением новых статей-->
+<!--                    const lastFiveArticles = data.articles.slice(-5); // Получаем последние 5 статей-->
+<!--                    lastFiveArticles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                <h2>${article.title}</h2>-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                    // Показываем контейнер с загруженными статьями-->
+<!--                    articlesContainer.style.display = 'block';-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--рабочий варинт -->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей &ndash;&gt;-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--            {% for article in articles %}-->
+<!--                <div class="article">-->
+<!--                    <h2>{{ article.title }}</h2>-->
+<!--                    <p>{{ article.content }}</p>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--    function loadArticles() {-->
+<!--        fetch('/load_articles/') // URL для парсинга и сохранения статей в БД-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                const articlesContainer = document.getElementById('articles-container');-->
+<!--                articlesContainer.innerHTML = ''; // Очистить контейнер перед добавлением новых статей-->
+<!--                data.articles.forEach(article => {-->
+<!--                    const articleElement = document.createElement('div');-->
+<!--                    articleElement.innerHTML = `-->
+<!--                        <div class="article">-->
+<!--                            <h2>${article.title}</h2>-->
+<!--                            <p>${article.content}</p>-->
+<!--                            <hr>-->
+<!--                        </div>-->
+<!--                    `;-->
+<!--                    articlesContainer.appendChild(articleElement);-->
+<!--                });-->
+<!--            })-->
+<!--            .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--шикарный вариант без ссылки-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей &ndash;&gt;-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--            {% for article in articles %}-->
+<!--                <div class="article">-->
+<!--                    <h2>{{ article.title }}</h2>-->
+<!--                    <p>Дата: {{ article.date }}</p>-->
+<!--                    <p>Теги: {{ article.tags.all|join:", " }}</p>-->
+<!--                    <p>Автор: {{ article.author.name }}</p>-->
+<!--                    {% if article.image_url %}-->
+<!--                        <img src="{{ article.image_url }}" alt="Изображение">-->
+<!--                    {% endif %}-->
+<!--                    <p>{{ article.content }}</p>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // URL для парсинга и сохранения статей в БД-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очистить контейнер перед добавлением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                <h2>${article.title}</h2>-->
+<!--                                <p>Дата: ${article.date}</p>-->
+<!--                                <p>Теги: ${article.tags.join(", ")}</p>-->
+<!--                                <p>Автор: ${article.author}</p>-->
+<!--                                <img src="${article.image_url}" alt="Изображение">-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                        location.reload();-->
+<!--                    });-->
+<!--                    // Автообновление страницы после загрузки статей-->
+<!--                    location.reload();-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--открывакется моя страница, но с ссылкой-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей &ndash;&gt;-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--            {% for article in articles %}-->
+<!--                <div class="article">-->
+<!--                    &lt;!&ndash; Изменения начинаются здесь &ndash;&gt;-->
+<!--                    <h2><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h2>-->
+<!--                    &lt;!&ndash; Изменения заканчиваются здесь &ndash;&gt;-->
+<!--                    <p>{{ article.content }}</p>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // URL для парсинга и сохранения статей в БД-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очистить контейнер перед добавлением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                &lt;!&ndash; Изменения начинаются здесь &ndash;&gt;-->
+<!--                                <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>-->
+<!--                                &lt;!&ndash; Изменения заканчиваются здесь &ndash;&gt;-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--Дефолтная ссылка-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Articles</title>-->
+<!--    &lt;!&ndash; Подключение Bootstrap &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Статьи</h1>-->
+
+<!--        &lt;!&ndash; Кнопка загрузки статей &ndash;&gt;-->
+<!--        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>-->
+
+<!--        &lt;!&ndash; Контейнер для статей &ndash;&gt;-->
+<!--        <div id="articles-container">-->
+<!--            &lt;!&ndash; Здесь будут отображаться загруженные статьи &ndash;&gt;-->
+<!--            {% for article in articles %}-->
+<!--                <div class="article">-->
+<!--                    &lt;!&ndash; Изменения начинаются здесь &ndash;&gt;-->
+<!--                    <h2><a href="#" onclick="openArticle(event, '{{ article.link }}')">{{ article.title }}</a></h2>-->
+<!--                    &lt;!&ndash; Изменения заканчиваются здесь &ndash;&gt;-->
+<!--                    <p>{{ article.content }}</p>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function loadArticles() {-->
+<!--            fetch('/load_articles/') // URL для парсинга и сохранения статей в БД-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const articlesContainer = document.getElementById('articles-container');-->
+<!--                    articlesContainer.innerHTML = ''; // Очистить контейнер перед добавлением новых статей-->
+<!--                    data.articles.forEach(article => {-->
+<!--                        const articleElement = document.createElement('div');-->
+<!--                        articleElement.innerHTML = `-->
+<!--                            <div class="article">-->
+<!--                                &lt;!&ndash; Изменения начинаются здесь &ndash;&gt;-->
+<!--                                <h2><a href="#" onclick="openArticle(event, '${article.link}')">${article.title}</a></h2>-->
+<!--                                &lt;!&ndash; Изменения заканчиваются здесь &ndash;&gt;-->
+<!--                                <p>${article.content}</p>-->
+<!--                                <hr>-->
+<!--                            </div>-->
+<!--                        `;-->
+<!--                        articlesContainer.appendChild(articleElement);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error('Ошибка загрузки статей:', error));-->
+<!--        }-->
+
+<!--        function openArticle(event, link) {-->
+<!--            event.preventDefault(); // Предотвратить переход по ссылке-->
+<!--            window.open(link, '_blank'); // Открыть ссылку в новой вкладке-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <!-- Подключение Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Статьи</h1>
+
+        <!-- Кнопка загрузки статей -->
+        <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>
+
+        <!-- Пагинатор -->
+        <div class="pagination">
+            <span class="step-links">
+                {% for num in articles.paginator.page_range %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endfor %}
+            </span>
+        </div>
+
+        <!-- Контейнер для статей -->
+        <div id="articles-container">
+            <!-- Здесь будут отображаться загруженные статьи -->
+            {% for article in articles %}
+                <div class="article">
+                    <!-- Изменения начинаются здесь -->
+                    <h2><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h2>
+                    <p><strong>Дата:</strong> {{ article.date }}</p>
+                    <p><strong>Теги:</strong> {{ article.tags.all|join:", " }}</p>
+                    <p><strong>Автор:</strong> {{ article.author }}</p>
+                    <!-- Изменения заканчиваются здесь -->
+                    <p>{{ article.content }}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% for num in articles.paginator.page_range %}-->
+<!--                    <a href="?page={{ num }}">{{ num }}</a>-->
+<!--                {% endfor %}-->
+<!--            </span>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Пагинатор &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if articles.has_previous %}-->
+<!--                    <a href="?page=1">&laquo; Первая</a>-->
+<!--                    <a href="?page={{ articles.previous_page_number }}">Предыдущая</a>-->
+<!--                {% endif %}-->
+<!--                <span class="current">-->
+<!--                    Страница {{ articles.number }} из {{ articles.paginator.num_pages }}.-->
+<!--                </span>-->
+<!--                {% if articles.has_next %}-->
+<!--                    <a href="?page={{ articles.next_page_number }}">Следующая</a>-->
+<!--                    <a href="?page={{ articles.paginator.num_pages }}">Последняя &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+    </div>
+
+    <script>
+        function loadArticles() {
+            fetch('/load_articles/') // URL для парсинга и сохранения статей в БД
+                .then(response => response.json())
+                .then(data => {
+                    const articlesContainer = document.getElementById('articles-container');
+                    articlesContainer.innerHTML = ''; // Очистить контейнер перед добавлением новых статей
+                    data.articles.forEach(article => {
+                        const articleElement = document.createElement('div');
+                        articleElement.innerHTML = `
+                            <div class="article">
+                                <!-- Изменения начинаются здесь -->
+                                <h2><a href="${article.link}" target="_blank">${article.title}</a></h2>
+                                <!-- Изменения заканчиваются здесь -->
+                                <p>${article.content}</p>
+                                <hr>
+                            </div>
+                        `;
+                        articlesContainer.appendChild(articleElement);
+                    });
+                })
+                .catch(error => console.error('Ошибка загрузки статей:', error));
+        }
+        // Функция для автоматической перезагрузки страницы через определенный интервал времени
+        function autoReload() {
+            setTimeout(function () {
+                location.reload();
+            }, 10000); // Перезагрузка страницы каждую минуту (60000 миллисекунд)
+        }
+
+        // Запуск автоматической перезагрузки страницы при загрузке
+        window.onload = function () {
+            autoReload();
+        };
+    </script>
+</body>
+</html>
+
+
