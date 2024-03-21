@@ -21,7 +21,7 @@ def display_articles(request):
     return render(request, 'articles/article_list.html', {'articles': articles})
 
 
-def parse_articles():
+def parse_articles(request):
     parse_habr_articles()
 
     latest_articles = Article.objects.order_by('-date')[:5]
