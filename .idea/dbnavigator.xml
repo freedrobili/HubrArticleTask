@@ -28,10 +28,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" object-ref="schemas/habr_db/tables/articles_tag" />
-      <object connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" object-ref="schemas/habr_db/tables/articles_article_tags" />
       <object connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" object-ref="schemas/habr_db/tables/articles_article" />
-      <object connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" object-ref="schemas/habr_db/tables/articles_author" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
@@ -40,33 +37,39 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="hubr_db.articles_article_tags" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.articles_tag" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_group" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_user" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_group_permissions" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.articles_author" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.articles_article_tags" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.auth_group" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.auth_user_groups" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.articles_article" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.articles_article_tags" active-filter-id="EMPTY_FILTER">
-      <filter id="edbc5706-1447-4a0e-83c3-dc4312085874" name="1" temporary="false" custom-name="false" type="basic" join-type="AND">
-        <condition column="id" operator="=" value="1" active="true" />
-      </filter>
-    </filter-actions>
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_permission" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="hubr_db.articles_tag" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.articles_article" active-filter-id="EMPTY_FILTER">
       <filter id="97f2e241-4fc9-4552-889e-a1152c543254" name="Что такое гостевой постинг, и как его ор..." temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="title" operator="=" value="Что такое гостевой постинг, и как его организовать?" active="true" />
       </filter>
     </filter-actions>
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.django_migrations" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.auth_user_user_permissions" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="hubr_db.articles_author" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.auth_group_permissions" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="hubr_db.articles_article" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.articles_tag" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.auth_user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_group_permissions" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.articles_author" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.articles_article_tags" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_permission" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.articles_article_tags" active-filter-id="EMPTY_FILTER">
+      <filter id="edbc5706-1447-4a0e-83c3-dc4312085874" name="1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="1" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.django_migrations" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.articles_author" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.articles_tag" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.auth_user_groups" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.django_content_type" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="hubr_db.articles_article" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="sqlDB.django_session" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="1d70c207-0a5d-460f-8cf4-597206267d78" dataset="habr_db.auth_permission" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
