@@ -1,31 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Статьи</h1>
-
+    <div class="header-container">
         <button class="btn btn-primary mb-3" onclick="loadArticles()">Загрузить статьи</button>
+    </div>
 
+    <div class="pagination-container">
         <div class="pagination">
             <span class="step-links">
-                {% for num in articles.paginator.page_range %}
-                    <a href="?page={{ num }}">{{ num }}</a>
-                {% endfor %}
+                {% if articles.paginator.num_pages > 1 %}
+                    {% if articles.number > 3 %}
+                        <a href="?page=1">1</a>
+                        {% if articles.number > 4 %}
+                            <span>&hellip;</span>
+                        {% endif %}
+                    {% endif %}
+                    {% for num in articles.paginator.page_range %}
+                        {% if num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+                            {% if num != articles.number %}
+                                <a href="?page={{ num }}">{{ num }}</a>
+                            {% else %}
+                                <span class="current">{{ num }}</span>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if articles.paginator.num_pages > articles.number|add:'3' %}
+                        {% if articles.paginator.num_pages > articles.number|add:'4' %}
+                            <span>&hellip;</span>
+                        {% endif %}
+                        <a href="?page={{ articles.paginator.num_pages }}">{{ articles.paginator.num_pages }}</a>
+                    {% endif %}
+                {% endif %}
             </span>
         </div>
+    </div>
 
+    <div class="container">
         <div id="articles-container">
             {% for article in articles %}
                 <div class="article">
                     <h2><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h2>
-                    <p><strong>Дата:</strong> {{ article.date }}</p>
-                    <p><strong>Теги:</strong> {{ article.tags.all|join:", " }}</p>
+                    <p><strong>Дата:</strong> {{ article.date|date:"d F Y" }}</p>
+                    <p><strong>Теги:</strong>
+                        {% for tag in article.tags.all %}
+                            {{ tag.name }} ({{ tag.article_set.count }})
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
                     <p><strong>Автор:</strong> {{ article.author }}</p>
                     <p>{{ article.content }}</p>
                     <hr>
@@ -67,5 +95,3 @@
     </script>
 </body>
 </html>
-
-

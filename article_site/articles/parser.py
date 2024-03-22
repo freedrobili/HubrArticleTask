@@ -46,6 +46,10 @@ def parse_habr_articles():
 
         print("Теги:", tags)
 
+        for tag_name in tags:
+            tag_articles_count = Article.objects.filter(tags__name=tag_name).count()
+            print(f"({tag_articles_count} статей с тегом '{tag_name}')")
+
         image_block = article_data.find('div', class_='tm-article-snippet__cover')
         if image_block:
             image_tag = image_block.find('img')

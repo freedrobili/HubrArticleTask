@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'article_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hubr_db',
+        'NAME': 'habr_db',
         'USER': 'root',
         'PASSWORD': 'password',
         'HOST': 'localhost',
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
