@@ -19,7 +19,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 760px;
     margin: auto;
     background-color: white;
     padding: 20px;
@@ -73,4 +73,9 @@ h1 {
 .article p {
     font-size: 0.9em;
     color: #555555;
+}
+
+.article-image {
+    width: 750px;
+    height: 420px;
 }

@@ -21,6 +21,17 @@ def parse_habr_articles():
         article_response = requests.get(link).text
         article_data = BeautifulSoup(article_response, 'html.parser')
 
+        figure_element = article_data.find('figure', class_='full-width')
+        if figure_element:
+            image_element = figure_element.find('img')
+            if image_element:
+                image_url = image_element.get('src')
+                print("URL изображения:", image_url)
+            else:
+                print("Изображение не найдено")
+        else:
+            print("Тег <figure> не найден")
+
         author_element = article_data.find('a', class_='tm-user-info__username')
         if author_element:
             author_name = author_element.get_text(strip=True)
@@ -49,18 +60,6 @@ def parse_habr_articles():
         for tag_name in tags:
             tag_articles_count = Article.objects.filter(tags__name=tag_name).count()
             print(f"({tag_articles_count} статей с тегом '{tag_name}')")
-
-        image_block = article_data.find('div', class_='tm-article-snippet__cover')
-        if image_block:
-            image_tag = image_block.find('img')
-            if image_tag:
-                image_url = image_tag['src']
-            else:
-                image_url = None
-        else:
-            image_url = None
-
-        print("Ссылка на изображение:", image_url)
 
         try:
             existing_article = Article.objects.filter(title=title).first()

@@ -55,6 +55,9 @@
                         {% endfor %}
                     </p>
                     <p><strong>Автор:</strong> {{ article.author }}</p>
+                    {% if article.image_url %}
+                        <img src="{{ article.image_url }}" alt="Изображение" class="article-image">
+                    {% endif %}
                     <p>{{ article.content }}</p>
                     <hr>
                 </div>
